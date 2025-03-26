@@ -31,12 +31,17 @@ export default class Brush {
         return this._thickness
     }
     // Methods
-    setStyle() {
+    setStyle(style) {
+        if(style) {
+            style.thickness ? this.thickness = style.thickness : this.thickness = 0
+            style.stroke ? this.stroke = style.stroke : this.stroke = false
+            style.fill ? this.fill = style.fill : this.fill = false
+        }
         this.canvas.style = {
             stroke: this.stroke ? this.stroke : false,
             fill: this.fill ? this.fill : false,
             lineWidth: this.thickness ? this.thickness : 0
-        }
+        } 
     }
     drawPoint(x, y, r) {
         const ctx = this.canvas.ctx
@@ -103,4 +108,46 @@ export default class Brush {
         if (this.stroke && this.thickness > 0) ctx.stroke()
         ctx.closePath()
     }
+    // Shapes
+    drawShape(shape, args, style) {
+        switch (shape) {
+            case "point":
+                if (!style) {
+                    let style = {
+                        stroke: "black",
+                        fill: "black",
+                        thickness: 1
+                    }
+                    
+                    this.setStyle(style)
+                }
+                var {x, y, r} = args
+                this.drawPoint(x, y, r)
+                break;
+            case "square":
+                if (!style) {
+                    let style = {
+                        stroke: "black",
+                        fill: "white",
+                        thickness: 1
+                    }
+                    this.setStyle(style)
+                }
+                var {x, y, s} = args
+                var cx = x
+                var cy = y
+                x = cx - s/2
+                y = cy - s/2
+                let p = [
+                    {x: x, y: y},
+                    {x: x + s, y: y},
+                    {x: x + s, y: y + s},
+                    {x: x, y: y + s}
+                ]
+                this.drawPath(p, true)
+                break;
+        }
+    }
 }
+
+

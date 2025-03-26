@@ -18,8 +18,7 @@ brush.drawEllipse(p[1].x, p[1].y, 50, 100, 0.5)
 brush.drawArc(p[0].x, p[0].y, 100, 0, Math.PI, true)
 brush.drawCurve(p, true)
 
-const osc = new js.Signals.Oscillator()
-document.addEventListener("click", () => {
-    osc.start()
-})
+brush.drawShape("point", {x: 100, y: 100, r: 10})
+brush.drawShape("square", {x: 100, y: 100, s: 100})
+
 

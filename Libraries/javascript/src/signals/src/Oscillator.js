@@ -1,7 +1,7 @@
 export default class Oscillator {
-    constructor() {
-        // Create audio context
-        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    constructor(audioContext) {
+        // Use provided audio context or create new one
+        this.audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
         this.oscillator = null;
         this.gainNode = null;
         this.isPlaying = false;

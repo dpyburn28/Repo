@@ -10,7 +10,7 @@ export default class Canvas {
     }
     this.ctx = this.canvas.getContext('2d')
     this.canvas.style.position = 'absolute'
-    this.backgroundColor = 'black'
+    this.backgroundColor = 'white'
     this.clear()
   }
   // Setters and Getters
@@ -66,10 +66,11 @@ export default class Canvas {
     if (!this._backgroundColor) this._backgroundColor = 'white'
     if (color) {
       this._backgroundColor = color
+      this.canvas.style.backgroundColor = color
     }
   }
   get backgroundColor() {
-    return this.ctx.fillStyle
+    return this._backgroundColor
   }
   // Methods
   fullscreen() {
