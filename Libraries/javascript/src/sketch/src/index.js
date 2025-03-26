@@ -1,3 +1,3 @@
-import * as canvas from "./canvas/index.js"
+import Canvas from "./Canvas.js"
 
-export { canvas }
+export { Canvas }

@@ -9,7 +9,7 @@ export default class Canvas {
     }
     this.ctx = this.canvas.getContext('2d')
   }
-  set style({stroke, fill}) {
+  set style({stroke, fill, lineWidth}) {
       if (!this._style) this._style = {}
       if (stroke) {
         this.ctx.strokeStyle = stroke
@@ -18,6 +18,10 @@ export default class Canvas {
       if (fill) {
         this.ctx.fillStyle = fill
         this._style.fill = fill
+      }
+      if (lineWidth) {
+        this.ctx.lineWidth = lineWidth
+        this._style.lineWidth = lineWidth
       }
   }
   get style() {
