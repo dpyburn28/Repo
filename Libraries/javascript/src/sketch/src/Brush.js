@@ -57,18 +57,24 @@ export default class Brush {
             ctx.lineTo(p.x, p.y)
         });
         if (closed) ctx.closePath()
+        if (this.fill) ctx.fill()
         if (this.stroke && this.thickness > 0) ctx.stroke()
         ctx.closePath()
     }
-    drawShape(points, closed = true) {
+    drawEllipse(x, y, w, h, shear = 0) {
         const ctx = this.canvas.ctx
         this.setStyle()
         ctx.beginPath()
-        let p0 = points.shift()
-        ctx.moveTo(p0.x, p0.y)
-        points.forEach(p => {
-            ctx.lineTo(p.x, p.y)
-        });
+        ctx.ellipse(x, y, w, h, shear, Math.PI*2, 0)
+        if (this.fill) ctx.fill()
+        if (this.stroke && this.thickness > 0) ctx.stroke()
+        ctx.closePath()
+    }
+    drawArc(x, y, r, start, end, closed) {
+        const ctx = this.canvas.ctx
+        this.setStyle()
+        ctx.beginPath()
+        ctx.arc(x, y, r, start, end)
         if (closed) ctx.closePath()
         if (this.fill) ctx.fill()
         if (this.stroke && this.thickness > 0) ctx.stroke()

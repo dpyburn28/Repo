@@ -10,7 +10,9 @@ let p = [
     {x:400, y:500},
     {x:400, y:100}
 ]
-brush.drawPoint(p[0].x, p[0].y, 10)
-brush.drawShape(p, true)
 
+brush.drawPoint(p[0].x, p[0].y, 10)
+brush.drawPath(p, true)
+brush.drawEllipse(p[1].x, p[1].y, 50, 100, 0.5)
+brush.drawArc(p[0].x, p[0].y, 100, 0, Math.PI, true)
 console.log(canv)
