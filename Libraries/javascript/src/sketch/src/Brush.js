@@ -34,7 +34,7 @@ export default class Brush {
     setStyle() {
         this.canvas.style = {
             stroke: this.stroke ? this.stroke : false,
-            fill: this.fill ? this.fill : false, 
+            fill: this.fill ? this.fill : false,
             lineWidth: this.thickness ? this.thickness : 0
         }
     }
@@ -42,7 +42,7 @@ export default class Brush {
         const ctx = this.canvas.ctx
         this.setStyle()
         ctx.beginPath()
-        ctx.ellipse(x, y, r, r, 0, Math.PI*2, 0)
+        ctx.ellipse(x, y, r, r, 0, Math.PI * 2, 0)
         if (this.fill) ctx.fill()
         if (this.stroke && this.thickness > 0) ctx.stroke()
         ctx.closePath()
@@ -56,6 +56,7 @@ export default class Brush {
         points.forEach(p => {
             ctx.lineTo(p.x, p.y)
         });
+        points.unshift(p0)
         if (closed) ctx.closePath()
         if (this.fill) ctx.fill()
         if (this.stroke && this.thickness > 0) ctx.stroke()
@@ -65,7 +66,7 @@ export default class Brush {
         const ctx = this.canvas.ctx
         this.setStyle()
         ctx.beginPath()
-        ctx.ellipse(x, y, w, h, shear, Math.PI*2, 0)
+        ctx.ellipse(x, y, w, h, shear, Math.PI * 2, 0)
         if (this.fill) ctx.fill()
         if (this.stroke && this.thickness > 0) ctx.stroke()
         ctx.closePath()
@@ -75,6 +76,28 @@ export default class Brush {
         this.setStyle()
         ctx.beginPath()
         ctx.arc(x, y, r, start, end)
+        if (closed) ctx.closePath()
+        if (this.fill) ctx.fill()
+        if (this.stroke && this.thickness > 0) ctx.stroke()
+        ctx.closePath()
+    }
+    drawCurve(points, closed) {
+        const ctx = this.canvas.ctx
+        let p1, c1, c2, p2
+        // Handle points array
+        if (Array.isArray(points) && points.length === 4) {
+            [p1, c1, c2, p2] = points
+        } else { // Handle points object
+            p1 = points.p1
+            c1 = points.c1
+            c2 = points.c2
+            p2 = points.p2
+        }
+        // Draw 
+        this.setStyle()
+        ctx.beginPath()
+        ctx.moveTo(p1.x, p1.y)
+        ctx.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, p2.x, p2.y)
         if (closed) ctx.closePath()
         if (this.fill) ctx.fill()
         if (this.stroke && this.thickness > 0) ctx.stroke()
